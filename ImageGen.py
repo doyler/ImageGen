@@ -7,12 +7,24 @@ max = 2**(side*side)
 img = Image.new('1', (side, side), "white")
 myImg = []
 
-for count in range (1,6):
+def benchmark(reps):
+    for count in range (1,reps+1):
+        print "#\n#\n#Run #" + str(count)
 
-    print "#\n#\n#Run #" + str(count)
+        start = time.clock()
+        generate()
+        end = time.clock()
 
-    start = time.clock()
+        print "#\n#Generating " + str(side) + "x" + str(side) + " icons took " + str(end-start) + " seconds."
+        print "#That is an average of " + str((end-start)/max) + " seconds per image."
 
+        startDel = time.clock()
+        #delete()
+        endDel = time.clock()
+
+        print "#\n#Deleting " + str(side) + "x" + str(side) + " icons took " + str(endDel-startDel) + " seconds."
+
+def generate():
     for i in range (0,max):
         format = "{:0"+str(int(math.ceil(math.log(max,2))))+"b}"
         bin = format.format(i)
@@ -22,22 +34,11 @@ for count in range (1,6):
             img.putdata(myImg)
             img.save('test'+bin+'.png')
 
-    end = time.clock()
-
-    print "#\n#Generating " + str(side) + "x" + str(side) + " icons took " + str(end-start) + " seconds."
-    print "#That is an average of " + str((end-start)/max) + " seconds per image."
-
-    startDel = time.clock()
-
+def delete():
     for filename in glob.glob("*.png"):
         os.remove(filename)
 
-    endDel = time.clock()
-
-    print "#\n#Deleting " + str(side) + "x" + str(side) + " icons took " + str(endDel-startDel) + " seconds."
-
-
-
+benchmark(1)
 
 #Run #1
 #
