@@ -1,10 +1,11 @@
 import os, glob, math, time
 from PIL import Image, ImageDraw
 
-side = 2
+side = 3
 max = 2**(side*side)
 
 img = Image.new('1', (side, side), "white")
+#img = Image.new('RGB', (side, side), "white") 
 myImg = []
 
 def benchmark(reps):
@@ -31,6 +32,15 @@ def generate():
         myImg = []
         for j in range (0,len(bin)):
             myImg.append(int(bin[j])*255)
+            #Red
+            #Yellow
+            #Green
+            #Blue
+            #Purple
+            #Black
+            #White
+            #Orange
+            #myImg.append((0, 0, int(bin[j])*255))
             img.putdata(myImg)
             img.save('test'+bin+'.png')
 
@@ -38,7 +48,12 @@ def delete():
     for filename in glob.glob("*.png"):
         os.remove(filename)
 
+#bigStart = time.clock()
 benchmark(1)
+#bigEnd = time.clock()
+
+#print "#\n#The entire process took " + str(bigEnd-bigStart) + " seconds."
+
 
 #Run #1
 #
