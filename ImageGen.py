@@ -2,11 +2,10 @@ import os, glob, math, time
 from PIL import Image, ImageDraw
 
 side = 3
-max = 2**(side*side)
+maxSize = 2**(side*side)
 
 img = Image.new('1', (side, side), "white")
-#img = Image.new('RGB', (side, side), "white") 
-myImg = []
+#img = Image.new('RGB', (side, side), "white")
 
 def benchmark(reps):
     for count in range (1,reps+1):
@@ -17,7 +16,7 @@ def benchmark(reps):
         end = time.clock()
 
         print "#\n#Generating " + str(side) + "x" + str(side) + " icons took " + str(end-start) + " seconds."
-        print "#That is an average of " + str((end-start)/max) + " seconds per image."
+        print "#That is an average of " + str((end-start)/maxSize) + " seconds per image."
 
         startDel = time.clock()
         #delete()
@@ -26,12 +25,12 @@ def benchmark(reps):
         print "#\n#Deleting " + str(side) + "x" + str(side) + " icons took " + str(endDel-startDel) + " seconds."
 
 def generate():
-    for i in range (0,max):
-        format = "{:0"+str(int(math.ceil(math.log(max,2))))+"b}"
-        bin = format.format(i)
+    for i in range (0,maxSize):
+        formatStr = "{:0"+str(int(math.ceil(math.log(maxSize,2))))+"b}"
+        binStr = formatStr.format(i)
         myImg = []
-        for j in range (0,len(bin)):
-            myImg.append(int(bin[j])*255)
+        for j in range (0,len(binStr)):
+            myImg.append(int(binStr[j])*255)
             #Red
             #Yellow
             #Green
@@ -42,17 +41,21 @@ def generate():
             #Orange
             #myImg.append((0, 0, int(bin[j])*255))
             img.putdata(myImg)
-            img.save('test'+bin+'.png')
+            img.save('test'+binStr+'.png')
 
 def delete():
     for filename in glob.glob("*.png"):
         os.remove(filename)
 
-#bigStart = time.clock()
-benchmark(1)
-#bigEnd = time.clock()
+def main():
+    #bigStart = time.clock()
+    benchmark(1)
+    #bigEnd = time.clock()
 
-#print "#\n#The entire process took " + str(bigEnd-bigStart) + " seconds."
+    #print "#\n#The entire process took " + str(bigEnd-bigStart) + " seconds."
+
+if __name__=='__main__':
+	main()
 
 
 #Run #1

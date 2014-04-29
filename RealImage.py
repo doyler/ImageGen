@@ -25,8 +25,12 @@ def generate():
         img.putdata(myImg)
         img.save('test-generated.png')
 
-start = time.clock()
-read()
-end = time.clock()
+def main():
+    start = time.clock()
+    read()
+    end = time.clock()
 
-print "#\n#Generating 36x29 icon took " + str(end-start) + " seconds."
+    print "#\n#Generating 36x29 icon took " + str(end-start) + " seconds."
+
+if __name__=='__main__':
+	main()
